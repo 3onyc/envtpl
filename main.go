@@ -19,10 +19,10 @@ var (
 	ExitIncorrectUsage = 64
 )
 
-func EnvMap() map[string]string {
+func EnvMap(e []string) map[string]string {
 	envMap := map[string]string{}
 
-	for _, v := range os.Environ() {
+	for _, v := range e {
 		p := strings.SplitN(v, "=", 2)
 
 		if len(p) != 2 {
@@ -68,7 +68,7 @@ func main() {
 		}
 	}
 
-	if err := renderTemplate(tpl, EnvMap()); err != nil {
+	if err := renderTemplate(tpl, EnvMap(os.Environ())); err != nil {
 		log.Panic(err)
 		os.Exit(ExitError)
 	}
