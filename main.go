@@ -49,20 +49,11 @@ func loadTemplate() (*template.Template, error) {
 		return nil, NoInputError
 	}
 
-	tpl, err := template.New("confTpl").Parse(string(tplBytes))
-	if err != nil {
-		return nil, err
-	}
-
-	return tpl, nil
+	return template.New("confTpl").Parse(string(tplBytes))
 }
 
 func renderTemplate(tpl *template.Template, env map[string]string) error {
-	if err := tpl.Execute(os.Stdout, env); err != nil {
-		return err
-	}
-
-	return nil
+	return tpl.Execute(os.Stdout, env)
 }
 
 func main() {
